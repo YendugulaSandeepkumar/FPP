@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api', // Update if backend port changes
+  baseURL: 'https://fpp-backend-1.onrender.com//api', // Update if backend port changes
 });
 
 api.interceptors.request.use((config) => {
