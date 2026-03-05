@@ -28,7 +28,6 @@
 
 // start();
 
-
 require('dotenv').config();
 
 const express = require('express');
@@ -39,24 +38,31 @@ const routes = require('./routes/api');
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+// Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// API routes
 app.use('/api', routes);
 
 const PORT = process.env.PORT || 5000;
 
-const start = async () => {
+// Start server
+const startServer = async () => {
   try {
     await initDB();
+
     app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log(`✅ Server running on port ${PORT}`);
     });
-  } catch (err) {
-    console.error("Server start error:", err);
+
+  } catch (error) {
+    console.error("❌ Server failed to start:", error.message);
+    process.exit(1);
   }
 };
 
-start();
+startServer();
