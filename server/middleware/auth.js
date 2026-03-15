@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
       throw new Error();
     }
 
-    const decoded = jwt.verify(token, 'fpp_jwt_secret');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fpp_jwt_secret');
     req.user = decoded;
     next();
   } catch (error) {
