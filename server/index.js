@@ -45,6 +45,12 @@ app.use(express.json());
 // Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Clean up duplicate slashes in the URL (e.g. //api/auth/login -> /api/auth/login)
+app.use((req, res, next) => {
+  req.url = req.url.replace(/\/{2,}/g, '/');
+  next();
+});
+
 // API routes
 app.use('/api', routes);
 
